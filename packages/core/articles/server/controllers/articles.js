@@ -27,6 +27,8 @@ module.exports = function(Articles) {
          */
         create: function(req, res) {
             var article = new Article(req.body);
+            console.log(req.body);
+            console.log(article);
             article.user = req.user;
 
             article.save(function(err) {
@@ -56,8 +58,8 @@ module.exports = function(Articles) {
 
             article = _.extend(article, req.body);
 
-
             article.save(function(err) {
+                console.log('err', err);
                 if (err) {
                     return res.status(500).json({
                         error: 'Cannot update the article'
@@ -75,6 +77,36 @@ module.exports = function(Articles) {
 
                 res.json(article);
             });
+        },
+
+        updateSortId: function (req, res) {
+            var article = req.article;
+
+            article = _.extend(article, req.body);
+
+            // Article.findOne({
+            //         _id: article._id
+            //     }).exec(function(err, circle) {
+            //         console.log(circle, typeof article.sort_id)
+            //     })
+
+            Article.findOneAndUpdate({
+                _id: article._id
+            }, {
+                $set: {'sort_id': article.sort_id}
+            }, {
+                multi: false,
+                upsert: false
+            }, function(err, articleMy) {
+                if (err) {
+                    return res.send(500, err.message);
+                }
+
+
+
+                res.send(200, 'updated');
+            });
+
         },
         /**
          * Delete an article
@@ -105,6 +137,7 @@ module.exports = function(Articles) {
          * Show an article
          */
         show: function(req, res) {
+            console.log('req.user', req.user);
 
             Articles.events.publish({
                 action: 'viewed',

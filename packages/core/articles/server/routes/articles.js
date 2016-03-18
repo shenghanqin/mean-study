@@ -33,6 +33,9 @@ module.exports = function(Articles, app, auth) {
     .get(auth.isMongoId, articles.show)
     .put(auth.isMongoId, auth.requiresLogin, hasAuthorization, hasPermissions, articles.update)
     .delete(auth.isMongoId, auth.requiresLogin, hasAuthorization, hasPermissions, articles.destroy);
+  app.route('/api/article/sortbyid/:articleId')
+    .put(auth.isMongoId, auth.requiresLogin, hasAuthorization, hasPermissions, articles.updateSortId)
+
 
   // Finish with setting up the articleId param
   app.param('articleId', articles.article);

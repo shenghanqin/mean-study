@@ -18,11 +18,15 @@ var findUser = exports.findUser = function(id, cb) {
  * Generic require login routing middleware
  */
 exports.requiresLogin = function(req, res, next) {
+    // console.log('req', req);
+    // 在何处定义的?
+    // isAuthenticated 如何验证成功  passport?
   if (!req.isAuthenticated()) {
-    return res.status(401).send('User is not authorized');
+    return res.status(401).send('User is not authorized, requiresLogin 1');
   }
   findUser(req.user._id, function(user) {
-      if (!user) return res.status(401).send('User is not authorized');
+      if (!user) return res.status(401).send('User is not authorized, requiresLogin 2');
+      // console.log('user', user);
       req.user = user;
       next();
   });

@@ -1,14 +1,17 @@
 'use strict';
 
+// 设置root路径
 var path = require('path'),
   rootPath = path.normalize(__dirname + '/../..');
 
 module.exports = {
   root: rootPath,
   http: {
+    // 默认端口
     port: process.env.PORT || 3000
   },
   https: {
+    // 不使用 https
     port: false,
 
     // Paths to key and cert as string
@@ -18,10 +21,15 @@ module.exports = {
       ca: ''
     }
   },
+
+  // 设置 hostname？
   hostname: process.env.HOST || process.env.HOSTNAME,
   db: process.env.MONGOHQ_URL,
+
+  // 模板引擎 swig
   templateEngine: 'swig',
 
+  // 配置无法猜出的session secret
   // The secret should be set to a non-guessable string that
   // is used to compute a session hash
   sessionSecret: 'MEAN',

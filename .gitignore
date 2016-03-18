@@ -65,7 +65,9 @@ modules/public/
 modules/views/
 /public/build/
 /packages/contrib/
-/packages/**/**/public/assets/lib
+
+# 有自定义的lib
+#/packages/**/**/public/assets/lib
 
 
 # --------------------

@@ -1,0 +1,15 @@
+{
+  "name": "wiz-markdown",
+  "homepage": "https://github.com/GrumpyWizards/wizMarkdown",
+  "version": "1.2.0",
+  "_release": "1.2.0",
+  "_resolution": {
+    "type": "version",
+    "tag": "v1.2.0",
+    "commit": "497ad7b523551c86c4c241651ed96133640f990e"
+  },
+  "_source": "git://github.com/GrumpyWizards/wizMarkdown.git",
+  "_target": "^1.2.0",
+  "_originalSource": "wiz-markdown",
+  "_direct": true
+}

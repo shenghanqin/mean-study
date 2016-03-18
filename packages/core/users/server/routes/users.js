@@ -14,6 +14,7 @@ module.exports = function(MeanUser, app, auth, database, passport) {
     .get(users.me);
 
   // Setting up the userId param
+  // TODO 为啥 要设置 userId?
   app.param('userId', users.user);
 
   // AngularJS route to check for authentication
@@ -21,7 +22,6 @@ module.exports = function(MeanUser, app, auth, database, passport) {
     .get(function(req, res) {
       if (!req.isAuthenticated()) return res.send('0');
       auth.findUser(req.user._id, function(user) {
-        res.send(user ? user : '0');
       });
     });
 
@@ -31,6 +31,7 @@ module.exports = function(MeanUser, app, auth, database, passport) {
       app.route('/api/register')
         .post(users.create);
 
+
       app.route('/api/forgot-password')
         .post(users.forgotpassword);
 
@@ -38,6 +39,8 @@ module.exports = function(MeanUser, app, auth, database, passport) {
         .post(users.resetpassword);
 
       // Setting the local strategy route
+      // TODO passport 的用法
+      // 使用 post请求,所以是Ajax发送post请求,或者表单发送
       app.route('/api/login')
         .post(passport.authenticate('local', {
           failureFlash: false

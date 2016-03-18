@@ -16,18 +16,33 @@ Articles.register(function(app, auth, database, circles, swagger) {
   //We enable routing. By default the Package Object is passed to the routes
   Articles.routes(app, auth, database);
 
+  Articles.aggregateAsset('js', '../lib/Sortable/Sortable.js', { weight: 1 });
+  Articles.aggregateAsset('js', '../lib/Sortable/ng-sortable.js', { weight: 2 });
+  Articles.aggregateAsset('js', '../lib/wiz-markdown/wizMarkdown/wizMarkdown.js', { weight: 3 });
+  
+  Articles.aggregateAsset('js', '../lib/Hz2Py/jQuery.Hz2Py-min.js', { weight: 4 });
+  Articles.aggregateAsset('js', '../lib/angular-clipboard/angular-clipboard.js', { weight: 5 });
+
+
+  Articles.aggregateAsset('js', '../lib/ng-prettyjson/dist/ng-prettyjson.min.js', { weight: 6 });
+  Articles.aggregateAsset('js', '../lib/ng-prettyjson/src/ace.js', { weight: 6 });
+  Articles.aggregateAsset('js', '../lib/daft-auto-spacing-gh-pages/text-autospace.js', { weight: 7 });
+
+  Articles.angularDependencies(['ng-sortable', 'wiz.markdown', 'ngPrettyJson', 'angular-clipboard']);
+
+  Articles.aggregateAsset('css', '../lib/ng-prettyjson/dist/ng-prettyjson.min.css', { weight: 1 });
   Articles.aggregateAsset('css', 'articles.css');
 
   
   //We are adding a link to the main menu for all authenticated users
   Articles.menus.add({
     'roles': ['authenticated'],
-    'title': 'Articles',
+    'title': '职位列表',
     'link': 'all articles'
   });
   Articles.menus.add({
     'roles': ['authenticated'],
-    'title': 'Create New Article',
+    'title': '发布新职位',
     'link': 'create article'
   });
 

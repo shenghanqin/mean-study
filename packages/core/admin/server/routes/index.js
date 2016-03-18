@@ -8,8 +8,18 @@ module.exports = function(Admin, app, auth, database) {
 
     //Setting up the users api
     var users = require('../controllers/users');
-    app.get('/api/admin/users', auth.requiresAdmin, users.all);
-    app.post('/api/admin/users', auth.requiresAdmin, users.create);
+
+
+var x = {
+    log: function(req, res, next){
+        console.log(">>>> ",JSON.stringify(req.user));
+        next();
+        // return res.send('Anyone can access this' + JSON.stringify(req.user));
+    }
+}
+
+    app.get('/api/admin/users', x.log, auth.requiresAdmin, users.all);
+    app.post('/api/admin/users',  auth.requiresAdmin, users.create);
     app.put('/api/admin/users/:userId', auth.requiresAdmin, users.update);
     app.delete('/api/admin/users/:userId', auth.requiresAdmin, users.destroy);
 

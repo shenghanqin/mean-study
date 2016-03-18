@@ -2,6 +2,7 @@
 
 module.exports = {
   db: 'mongodb://' + (process.env.DB_PORT_27017_TCP_ADDR || 'localhost') + '/mean-dev',
+  // 调试模式开启？  在哪里用到？
   debug: true,
   logging: {
     format: 'tiny'
@@ -13,9 +14,13 @@ module.exports = {
   },
   hostname: 'http://localhost:3000',
   app: {
-    name: 'MEAN - A Modern Stack - Development'
+    name: '加入我们管理台'
   },
+
+  // 策略？
   strategies: {
+
+    // 本地化
     local: {
       enabled: true
     },

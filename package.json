@@ -22,8 +22,8 @@
   "dependencies": {
     "assetmanager": "latest",
     "async": "latest",
-    "bower": "latest",
     "body-parser": "latest",
+    "bower": "latest",
     "compression": "latest",
     "connect-flash": "latest",
     "connect-modrewrite": "latest",
@@ -31,6 +31,7 @@
     "cookie-parser": "latest",
     "errorhandler": "latest",
     "express": "latest",
+    "express-validator": "^2.18.0",
     "forever": "latest",
     "gridfs-stream": "latest",
     "jsonwebtoken": "latest",

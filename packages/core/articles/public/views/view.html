@@ -1,8 +1,9 @@
 <section data-ng-controller="ArticlesController" data-ng-init="findOne()">
-  <span>{{article.created | date:'medium'}}</span> /
-  <span>{{article.user.name}}</span>
-  <h2>{{article.title}}</h2>
-  <div data-ng-if="hasAuthorization(article)">
+  <span>时间:{{article.created | date:'medium'}}</span> /
+  <span>发表者: {{article.user.name}}</span>
+  <h2>职位名称: {{article.title}}</h2>
+  <h4> 排序id： {{article.sort_id}} / 职位状态： {{article.status.name}} / 职位名称: {{article.category.name}} / 职位地点： {{article.address.name}} </h2>
+  <div data-ng-if="hasAuthorization(article)" class="text-right">
     <a class="btn" href="/articles/{{article._id}}/edit">
       <i class="glyphicon glyphicon-edit"></i>
     </a>
@@ -10,5 +11,12 @@
       <i class="glyphicon glyphicon-trash"></i>
     </a>
   </div>
-  <div>{{article.content}}</div>
+  <div class="qbc">
+    <div class="job-inner">
+      <div ng-bind-html="getContentHTML(article.content)"></div>
+      
+    </div>
+    <!-- <wiz-markdown content="article.content"></wiz-markdown> -->
+  </div>
+  <!-- <div >{{article.content}}</div> -->
 </section>

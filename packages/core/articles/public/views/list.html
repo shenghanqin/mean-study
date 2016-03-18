@@ -1,8 +1,37 @@
+
 <section data-ng-controller="ArticlesController" data-ng-init="find()">
-  <ul class="articles unstyled">
-    <li data-ng-repeat="article in articles">
-      <span>{{article.created | date:'medium'}}</span> /
-      <span>{{article.user.name}}</span>
+  <div class="container">
+    <div class="col-md-4">
+      <div class="text-center">
+        <a class="btn btn-success" ng-click="exportListSort()">导出排序结果</a>
+      </div>
+      
+    </div>
+    <div class="col-md-8">
+      <form name="listForm" class="form-horizontal" role="form" novalidate>
+        <div class="rows">
+          <!-- <div class="container"> -->
+            <label class="col-md-2 control-label">职能筛选：</label>
+            <div class="col-md-10">
+              <ui-select required ng-model="categorySelected" append-to-body="'true'" on-select="listCategoryShow($select.selected.slug)">
+                  <ui-select-match placeholder="全部职能" ng-click="showCategory();">{{$select.selected.name}}</ui-select-match>
+                  <ui-select-choices repeat="category in categoryListAll " name="category">
+                    {{category.name}}
+                  </ui-select-choices>
+              </ui-select>
+            </div>
+          <!-- </div> -->
+          
+        </div>
+      </form>
+      
+    </div>
+  </div>
+  <ol ng-sortable="listSortConfig" class="articles unstyled">
+    <!-- <li data-ng-repeat="article in articles | orderBy:sort_id:true"> -->
+    <li data-ng-repeat="article in articles " ng-show="categorySelected == 'all' || categorySelected == article.category.slug">
+      <!-- <span>{{article.created | date:'medium'}}</span> /
+      <span>{{article.user.name}}</span> -->
       <h2>
         <a data-ng-href="/articles/{{article._id}}">{{article.title}}</a>
         <span data-ng-if="hasAuthorization(article)">
@@ -14,8 +43,21 @@
           </a>
         </span>
       </h2>
-      <div>{{article.content}}</div>
+        <h4> 排序id： {{article.sort_id}} / 职位状态： {{article.status.name}} / 职位名称: {{article.category.name}} / 职位地点： {{article.address.name}} </h2>
+      <!-- <div>{{article.content}}</div> -->
     </li>
-  </ul>
+  </ol>
+  <div class="text-center" data-ng-show="articles && articles.length">
+    <a class="btn btn-primary" ng-click="saveListSort()">保存排序结果</a>
+    <a class="btn btn-success" ng-click="exportListSort()">导出排序结果</a>
+    
+    <!-- <btn class="btn btn-info" ng-show="exportJSON" clipboard text="exportJSON">复制JSON</btn> -->
+  </div>
+  <div class="alert {{alert.class}}" ng-bind="alert.text"></div>
   <h1 data-ng-hide="!articles || articles.length">No articles yet. <br> Why don't you <a href="/articles/create">Create One</a>?</h1>
+  <!-- <pre pretty-json="exportJSON"  /> -->
+  <div id="exportJSON">
+    <pretty-json ng-show="exportJSON" json="exportJSON" edition="true" on-edit="doWith(newJson)" ></pretty-json>
+  </div>
+  <!-- <textarea ng-show="exportJSON" class="form-control" rows="30" ng-model="exportJSON"></textarea> -->
 </section>
